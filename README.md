@@ -1,5 +1,3 @@
-# Gin-Element-Admin
-
 <div align=center>
 <img src="https://i.loli.net/2020/12/14/cnJoF9r1BXY7Da5.png" width=200" height="200" />
 <h1>Gin-Element-Admin</h1>
