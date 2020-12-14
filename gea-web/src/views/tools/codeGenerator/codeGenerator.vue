@@ -1,57 +1,51 @@
 <template>
     <div>
-        <el-collapse v-model="activeNames">
-            <el-collapse-item name="1">
-                <template slot="title">
-                    <div :style="{fontSize:'16px',paddingLeft:'20px'}">
-                        点这里从现有数据库创建代码
-                        <i class="header-icon el-icon-thumb"></i>
-                    </div>
-                </template>
-                <el-form ref="getTableForm" :inline="true" :model="dbform" label-width="120px">
-                    <el-form-item label="数据库名" prop="structName">
-                        <el-select @change="getTable" v-model="dbform.dbName" filterable placeholder="请选择数据库">
-                            <el-option v-for="item in dbOptions" :key="item.database" :label="item.database"
-                                :value="item.database"></el-option>
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item label="表名" prop="structName">
-                        <el-select v-model="dbform.tableName" :disabled="!dbform.dbName" filterable placeholder="请选择表">
-                            <el-option v-for="item in tableOptions" :key="item.tableName" :label="item.tableName"
-                                :value="item.tableName"></el-option>
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item>
-                        <el-button @click="getColumn" type="primary">使用此表创建</el-button>
-                    </el-form-item>
-                </el-form>
-            </el-collapse-item>
-        </el-collapse>
-
-        <el-divider></el-divider>
+        <el-row>
+            <el-col :span="24">
+                <el-button type="primary" @click="dbDialog = true">从现有数据库填写</el-button>
+            </el-col>
+        </el-row>
         <!-- 初始版本自动化代码工具 -->
-        <el-form ref="autoCodeForm" :rules="rules" :model="form" label-width="120px" :inline="true">
-            <el-form-item label="Struct名称" prop="structName">
-                <el-input v-model="form.structName" placeholder="首字母自动转换大写"></el-input>
-            </el-form-item>
-            <el-form-item label="tableName" prop="tableName">
-                <el-input v-model="form.tableName" placeholder="指定表名（非必填）"></el-input>
-            </el-form-item>
-            <el-form-item label="Struct简称" prop="abbreviation">
-                <el-input v-model="form.abbreviation" placeholder="简称会作为入参对象名和路由group"></el-input>
-            </el-form-item>
-            <el-form-item label="Struct中文名称" prop="description">
-                <el-input v-model="form.description" placeholder="中文描述作为自动api描述"></el-input>
-            </el-form-item>
-            <el-form-item label="文件名称" prop="packageName">
-                <el-input v-model="form.packageName"></el-input>
-            </el-form-item>
-            <el-form-item label="自动创建api">
-                <el-checkbox v-model="form.autoCreateApiToSql"></el-checkbox>
-            </el-form-item>
-            <el-form-item label="自动移动文件">
-                <el-checkbox v-model="form.autoMoveFile"></el-checkbox>
-            </el-form-item>
+        <el-form ref="autoCodeForm" :rules="rules" :model="form" :inline="true" style="margin-top: 20px">
+            <el-row>
+                <el-col :span="6">
+                    <el-form-item label="Struct名称" prop="structName">
+                        <el-input v-model="form.structName" placeholder="首字母自动转换大写"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                    <el-form-item label="tableName" prop="tableName">
+                        <el-input v-model="form.tableName" placeholder="指定表名（非必填）"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                    <el-form-item label="Struct简称" prop="abbreviation">
+                        <el-input v-model="form.abbreviation" placeholder="简称会作为入参对象名和路由group"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                    <el-form-item label="Struct中文名称" prop="description">
+                        <el-input v-model="form.description" placeholder="中文描述作为自动api描述"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col :span="6">
+                    <el-form-item label="文件名称" prop="packageName">
+                        <el-input v-model="form.packageName"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                    <el-form-item label="自动创建api">
+                        <el-checkbox v-model="form.autoCreateApiToSql"></el-checkbox>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                    <el-form-item label="自动移动文件(免下载)">
+                        <el-checkbox v-model="form.autoMoveFile"></el-checkbox>
+                    </el-form-item>
+                </el-col>
+            </el-row>
         </el-form>
         <!-- 组件列表 -->
         <div class="button-box clearflex">
@@ -100,6 +94,25 @@
                 <el-button @click="closeDialog">取 消</el-button>
                 <el-button type="primary" @click="enterDialog">确 定</el-button>
             </div>
+        </el-dialog>
+        <el-dialog title="从现有数据库填写当前页" :visible.sync="dbDialog" width="450px">
+            <el-form ref="getTableForm" :model="dbform" label-width="120px">
+                <el-form-item label="数据库名" prop="structName">
+                    <el-select @change="getTable" v-model="dbform.dbName" filterable placeholder="请选择数据库">
+                        <el-option v-for="item in dbOptions" :key="item.database" :label="item.database"
+                            :value="item.database"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="表名" prop="structName">
+                    <el-select v-model="dbform.tableName" :disabled="!dbform.dbName" filterable placeholder="请选择表">
+                        <el-option v-for="item in tableOptions" :key="item.tableName" :label="item.tableName"
+                            :value="item.tableName"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item>
+                    <el-button @click="getColumn" type="primary">使用此表填写</el-button>
+                </el-form-item>
+            </el-form>
         </el-dialog>
     </div>
 </template>
@@ -160,6 +173,7 @@ export default {
             dialogMiddle: {},
             bk: {},
             dialogFlag: false,
+            dbDialog: false,
         }
     },
     components: {
@@ -286,6 +300,7 @@ export default {
             this.dbform.tableName = ''
         },
         async getColumn() {
+            this.dbDialog = false
             const gormModelList = ['id', 'created_at', 'updated_at', 'deleted_at']
             const res = await getColumn(this.dbform)
             if (res.code == 0) {

@@ -8,7 +8,6 @@
         </el-slider>
         <el-slider v-model="value4" style="width: 100%" :marks="marks">
         </el-slider>
-
     </div>
 </template>
 

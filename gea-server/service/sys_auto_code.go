@@ -108,9 +108,9 @@ func CreateTemp(autoCode model.AutoCodeStruct) (err error) {
 				return err
 			}
 		}
-		return errors.New("创建代码成功并移动文件成功")
+		return errors.New("创建代码并移动文件到相应目录成功！")
 	} else { // 打包
-		if err := utils.ZipFiles("./ginvueadmin.zip", fileList, ".", "."); err != nil {
+		if err := utils.ZipFiles("./gea.zip", fileList, ".", "."); err != nil {
 			return err
 		}
 	}
@@ -186,7 +186,7 @@ func GetColumn(tableName string, dbName string) (err error, Columns []request.Co
 func addAutoMoveFile(data *tplData) {
 	dir := filepath.Base(filepath.Dir(data.autoCodePath))
 	base := filepath.Base(data.autoCodePath)
-	if strings.Contains(data.autoCodePath, "server") {
+	if strings.Contains(data.autoCodePath, "gea-server") {
 		if strings.Contains(data.autoCodePath, "router") {
 			data.autoMoveFilePath = filepath.Join(dir, base)
 		} else if strings.Contains(data.autoCodePath, "api") {
@@ -198,15 +198,15 @@ func addAutoMoveFile(data *tplData) {
 		} else if strings.Contains(data.autoCodePath, "request") {
 			data.autoMoveFilePath = filepath.Join("model", dir, base)
 		}
-	} else if strings.Contains(data.autoCodePath, "web") {
+	} else if strings.Contains(data.autoCodePath, "gea-web") {
 		if strings.Contains(data.autoCodePath, "js") {
-			data.autoMoveFilePath = filepath.Join("../", "web", "src", dir, base)
+			data.autoMoveFilePath = filepath.Join("../", "gea-web", "src", dir, base)
 		} else if strings.Contains(data.autoCodePath, "workflowForm") {
-			data.autoMoveFilePath = filepath.Join("../", "web", "src", "views", filepath.Base(filepath.Dir(filepath.Dir(data.autoCodePath))), strings.TrimSuffix(base, filepath.Ext(base))+"WorkflowForm.vue")
+			data.autoMoveFilePath = filepath.Join("../", "gea-web", "src", "views", filepath.Base(filepath.Dir(filepath.Dir(data.autoCodePath))), strings.TrimSuffix(base, filepath.Ext(base))+"WorkflowForm.vue")
 		} else if strings.Contains(data.autoCodePath, "form") {
-			data.autoMoveFilePath = filepath.Join("../", "web", "src", "views", filepath.Base(filepath.Dir(filepath.Dir(data.autoCodePath))), strings.TrimSuffix(base, filepath.Ext(base))+"Form.vue")
+			data.autoMoveFilePath = filepath.Join("../", "gea-web", "src", "views", filepath.Base(filepath.Dir(filepath.Dir(data.autoCodePath))), strings.TrimSuffix(base, filepath.Ext(base))+"Form.vue")
 		} else if strings.Contains(data.autoCodePath, "table") {
-			data.autoMoveFilePath = filepath.Join("../", "web", "src", "views", filepath.Base(filepath.Dir(filepath.Dir(data.autoCodePath))), base)
+			data.autoMoveFilePath = filepath.Join("../", "gea-web", "src", "views", filepath.Base(filepath.Dir(filepath.Dir(data.autoCodePath))), base)
 		}
 	}
 }
