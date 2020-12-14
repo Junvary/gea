@@ -1,6 +1,8 @@
 .idea/
 /gea-web/node_modules
 /gea-web/dist
+/gea-web/.vscode
+/gea-web/debug.log
 
 .DS_Store
 
