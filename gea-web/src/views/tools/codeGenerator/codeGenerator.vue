@@ -36,7 +36,7 @@
                     </el-form-item>
                 </el-col>
                 <el-col :span="6">
-                    <el-form-item label="自动创建api">
+                    <el-form-item label="自动插入api到数据库">
                         <el-checkbox v-model="form.autoCreateApiToSql"></el-checkbox>
                     </el-form-item>
                 </el-col>
