@@ -1,44 +1,42 @@
 <template>
     <div>
-        <div class="page-actions">
-            <el-form :inline="true" :model="searchInfo">
-               {{- range .Fields}}  {{- if .FieldSearchType}} {{- if eq .FieldType "bool" }}
-                <el-form-item label="{{.FieldDesc}}" prop="{{.FieldJson}}">
-                <el-select v-model="searchInfo.{{.FieldJson}}" clear placeholder="请选择">
-                    <el-option
-                        key="true"
-                        label="是"
-                        value="true">
-                    </el-option>
-                    <el-option
-                        key="false"
-                        label="否"
-                        value="false">
-                    </el-option>
-                </el-select>
-                </el-form-item>
-                      {{- else }}
-            <el-form-item label="{{.FieldDesc}}">
-                <el-input placeholder="搜索条件" v-model="searchInfo.{{.FieldJson}}"></el-input>
-            </el-form-item> {{ end }} {{ end }}  {{ end }}
-            <el-form-item>
-                <el-button @click="onSubmit" type="primary">查询</el-button>
+        <el-form :inline="true" :model="searchInfo">
+           {{- range .Fields}}  {{- if .FieldSearchType}} {{- if eq .FieldType "bool" }}
+            <el-form-item label="{{.FieldDesc}}" prop="{{.FieldJson}}">
+            <el-select v-model="searchInfo.{{.FieldJson}}" clear placeholder="请选择">
+                <el-option
+                    key="true"
+                    label="是"
+                    value="true">
+                </el-option>
+                <el-option
+                    key="false"
+                    label="否"
+                    value="false">
+                </el-option>
+            </el-select>
             </el-form-item>
-            <el-form-item>
-                <el-button @click="openDialog" type="primary">新增{{.Description}}</el-button>
-            </el-form-item>
-            <el-form-item>
-                <el-popover placement="top" v-model="deleteVisible" width="160">
-                    <p>确定要删除吗？</p>
-                    <div style="text-align: right; margin: 0">
-                        <el-button @click="deleteVisible = false" size="mini" type="text">取消</el-button>
-                        <el-button @click="onDelete" size="mini" type="primary">确定</el-button>
-                    </div>
-                    <el-button icon="el-icon-delete" size="mini" slot="reference" type="danger">批量删除</el-button>
-                </el-popover>
-            </el-form-item>
-            </el-form>
-        </div>
+                  {{- else }}
+        <el-form-item label="{{.FieldDesc}}">
+            <el-input placeholder="搜索条件" v-model="searchInfo.{{.FieldJson}}"></el-input>
+        </el-form-item> {{ end }} {{ end }}  {{ end }}
+        <el-form-item>
+            <el-button @click="onSubmit" type="primary">查询</el-button>
+        </el-form-item>
+        <el-form-item>
+            <el-button @click="openDialog" type="primary">新增{{.Description}}</el-button>
+        </el-form-item>
+        <el-form-item>
+            <el-popover placement="top" v-model="deleteVisible" width="160">
+                <p>确定要删除吗？</p>
+                <div style="text-align: right; margin: 0">
+                    <el-button @click="deleteVisible = false" size="mini" type="text">取消</el-button>
+                    <el-button @click="onDelete" size="mini" type="primary">确定</el-button>
+                </div>
+                <el-button slot="reference" type="danger">批量删除</el-button>
+            </el-popover>
+        </el-form-item>
+        </el-form>
         <el-table
             :data="tableData"
             @selection-change="handleSelectionChange"
@@ -68,64 +66,57 @@
             {{ end }}
             <el-table-column label="按钮组">
                 <template slot-scope="scope">
-                    <el-button class="table-button" @click="update{{.StructName}}(scope.row)" size="small" type="primary" icon="el-icon-edit">变更</el-button>
-                    <el-popover placement="top" width="160" v-model="scope.row.visible">
-                        <p>确定要删除吗？</p>
-                        <div style="text-align: right; margin: 0">
-                              <el-button size="mini" type="text" @click="scope.row.visible = false">取消</el-button>
-                              <el-button type="primary" size="mini" @click="delete{{.StructName}}(scope.row)">确定</el-button>
-                        </div>
-                        <el-button type="danger" icon="el-icon-delete" size="mini" slot="reference">删除</el-button>
-                    </el-popover>
+                    <el-button class="table-button" @click="update{{.StructName}}(scope.row)" size="small" type="primary">变更</el-button>
+                    <el-button @click="delete{{.StructName}}(scope.row)" type="danger" size="small">删除</el-button>
                 </template>
             </el-table-column>
-    </el-table>
+        </el-table>
 
-    <el-pagination
-        :current-page="page"
-        :page-size="pageSize"
-        :page-sizes="[10, 30, 50, 100]"
-        :style="{float:'right',padding:'20px'}"
-        :total="total"
-        @current-change="handleCurrentChange"
-        @size-change="handleSizeChange"
-        layout="total, sizes, prev, pager, next, jumper"
-    ></el-pagination>
+        <el-pagination
+            :current-page="page"
+            :page-size="pageSize"
+            :page-sizes="[10, 30, 50, 100]"
+            :style="{float:'right',padding:'20px'}"
+            :total="total"
+            @current-change="handleCurrentChange"
+            @size-change="handleSizeChange"
+            layout="total, sizes, prev, pager, next, jumper"
+        ></el-pagination>
 
-    <el-dialog :before-close="closeDialog" :visible.sync="dialogFormVisible" title="弹窗操作">
-        <el-form :model="formData" label-position="right" label-width="80px">
-        {{- range .Fields}}
-            <el-form-item label="{{.FieldDesc}}:">
-            {{- if eq .FieldType "bool" }}
-                <el-switch active-color="#13ce66" inactive-color="#ff4949" active-text="是" inactive-text="否" v-model="formData.{{.FieldJson}}" clearable ></el-switch>
-            {{ end -}}
-            {{- if eq .FieldType "string" }}
-                <el-input v-model="formData.{{.FieldJson}}" clearable placeholder="请输入" ></el-input>
-            {{ end -}}
-            {{- if eq .FieldType "int" }}
-            {{- if .DictType}}
-                 <el-select v-model="formData.{{ .FieldJson }}" placeholder="请选择" clearable>
-                     <el-option v-for="(item,key) in {{ .DictType }}Options" :key="key" :label="item.label" :value="item.value"></el-option>
-                 </el-select>
-            {{ else -}}
-                <el-input v-model.number="formData.{{ .FieldJson }}" clearable placeholder="请输入"></el-input>
-            {{ end -}}
-            {{ end -}}
-            {{- if eq .FieldType "time.Time" }}
-                <el-date-picker type="date" placeholder="选择日期" v-model="formData.{{ .FieldJson }}" clearable></el-date-picker>
-            {{ end -}}
-            {{- if eq .FieldType "float64" }}
-                <el-input-number v-model="formData.{{ .FieldJson }}" :precision="2" clearable></el-input-number>
-            {{ end -}}
-            </el-form-item>
-            {{ end -}}
-        </el-form>
-        <div class="dialog-footer" slot="footer">
-            <el-button @click="closeDialog">取 消</el-button>
-            <el-button @click="enterDialog" type="primary">确 定</el-button>
-        </div>
-    </el-dialog>
-</div>
+        <el-dialog :before-close="closeDialog" :visible.sync="dialogFormVisible" title="弹窗操作">
+            <el-form ref="geaForm" :model="formData" :rules="rules" label-position="right" label-width="100px">
+            {{- range .Fields}}
+                <el-form-item label="{{.FieldDesc}}:" prop="{{.FieldJson}}">
+                {{- if eq .FieldType "bool" }}
+                    <el-switch active-color="#13ce66" inactive-color="#ff4949" active-text="是" inactive-text="否" v-model="formData.{{.FieldJson}}" clearable ></el-switch>
+                {{ end -}}
+                {{- if eq .FieldType "string" }}
+                    <el-input v-model="formData.{{.FieldJson}}" clearable placeholder="请输入" ></el-input>
+                {{ end -}}
+                {{- if eq .FieldType "int" }}
+                {{- if .DictType}}
+                     <el-select v-model="formData.{{ .FieldJson }}" placeholder="请选择">
+                         <el-option v-for="(item, key) in {{ .DictType }}Options" :key="key" :label="item.label" :value="item.value"></el-option>
+                     </el-select>
+                {{ else -}}
+                    <el-input v-model.number="formData.{{ .FieldJson }}" clearable placeholder="请输入"></el-input>
+                {{ end -}}
+                {{ end -}}
+                {{- if eq .FieldType "time.Time" }}
+                    <el-date-picker type="date" placeholder="选择日期" v-model="formData.{{ .FieldJson }}" clearable></el-date-picker>
+                {{ end -}}
+                {{- if eq .FieldType "float64" }}
+                    <el-input-number v-model="formData.{{ .FieldJson }}" :precision="2" clearable></el-input-number>
+                {{ end -}}
+                </el-form-item>
+                {{ end -}}
+            </el-form>
+            <div class="dialog-footer" slot="footer">
+                <el-button @click="closeDialog">取 消</el-button>
+                <el-button @click="enterDialog" type="primary">确 定</el-button>
+            </div>
+        </el-dialog>
+    </div>
 </template>
 
 <script>
@@ -146,28 +137,37 @@ export default {
             multipleSelection: [],
             {{- range .Fields}}
             {{- if .DictType }}
-            {{ .DictType }}
-            Options:[],
+            {{ .DictType }}Options:[],
             {{ end -}}
             {{end -}}
-
             formData: {
                 {{range .Fields}}
                 {{- if eq .FieldType "bool" -}}
-                {{.FieldJson}}:false,
+                {{.FieldJson}}: false,
                 {{ end -}}
                 {{- if eq .FieldType "string" -}}
-                {{.FieldJson}}:"",
+                {{.FieldJson}}: '',
                 {{ end -}}
                 {{- if eq .FieldType "int" -}}
-                {{.FieldJson}}:0,
+                {{.FieldJson}}: '',
                 {{ end -}}
                 {{- if eq .FieldType "time.Time" -}}
-                {{.FieldJson}}:new Date(),
+                {{.FieldJson}}: new Date(),
                 {{ end -}}
                 {{- if eq .FieldType "float64" -}}
-                {{.FieldJson}}:0,
+                {{.FieldJson}}: 0,
                 {{ end -}}
+                {{ end }}
+            },
+            rules: {
+                {{range .Fields}}
+                {{.FieldJson}}: [
+                    {
+                        required: true,
+                        message: '请输入{{.FieldDesc}}',
+                        trigger: 'blur',
+                    }
+                ],
                 {{ end }}
             }
         };
@@ -255,37 +255,57 @@ export default {
             };
         },
         async delete{{.StructName}}(row) {
-            this.visible = false;
-            const res = await delete{{.StructName}}({ ID: row.ID });
-            if (res.code == 0) {
-            this.$message({
-                type: "success",
-                message: "删除成功"
-            });
-            this.getTableData();
-            }
+            this.$confirm('此操作将永久删除该{{.Description}}, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning',
+                lockScroll: false,
+                showClose: false,
+                closeOnClickModal: false,
+                closeOnPressEscape: false,
+            })
+                .then(async () => {
+                    this.visible = false;
+                    const res = await delete{{.StructName}}({ ID: row.ID });
+                    if (res.code == 0) {
+                    this.$message({
+                        type: "success",
+                        message: "删除成功"
+                    });
+                    this.getTableData();
+                    }
+                })
+                .catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除',
+                    })
+                })
         },
         async enterDialog() {
-            let res;
-            switch (this.type) {
-            case "create":
-                res = await create{{.StructName}}(this.formData);
-                break;
-            case "update":
-                res = await update{{.StructName}}(this.formData);
-                break;
-            default:
-                res = await create{{.StructName}}(this.formData);
-                break;
-            }
-            if (res.code == 0) {
-            this.$message({
-                type:"success",
-                message:"创建/更改成功"
+            this.$refs['geaForm'].validate(async (valid) => {
+                if (!valid) return
+                let res;
+                switch (this.type) {
+                    case "create":
+                        res = await create{{.StructName}}(this.formData);
+                        break;
+                    case "update":
+                        res = await update{{.StructName}}(this.formData);
+                        break;
+                    default:
+                        res = await create{{.StructName}}(this.formData);
+                        break;
+                }
+                if (res.code == 0) {
+                    this.$message({
+                        type:"success",
+                        message:"创建/更改成功"
+                    })
+                    this.closeDialog();
+                    this.getTableData();
+                }
             })
-            this.closeDialog();
-            this.getTableData();
-            }
         },
         openDialog() {
             this.type = "create";
@@ -303,5 +323,5 @@ export default {
 };
 </script>
 
-<style lang="scss" scopde>
+<style lang="scss" scoped>
 </style>

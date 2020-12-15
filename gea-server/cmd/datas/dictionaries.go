@@ -14,7 +14,7 @@ func InitSysDictionary(db *gorm.DB) {
 	var status = new(bool)
 	*status = true
 	Dictionaries := []model.SysDictionary{
-		{GeaModel: global.GeaModel{ID: 1, CreatedAt: time.Now(), UpdatedAt: time.Now()}, Name: "性别", Type: "sex", Status: status, Desc: "性别字典"},
+		{GeaModel: global.GeaModel{ID: 1, CreatedAt: time.Now(), UpdatedAt: time.Now()}, Name: "操作系统", Type: "os", Status: status, Desc: "操作系统"},
 		{GeaModel: global.GeaModel{ID: 2, CreatedAt: time.Now(), UpdatedAt: time.Now()}, Name: "数据库int类型", Type: "int", Status: status, Desc: "int类型对应的数据库类型"},
 		{GeaModel: global.GeaModel{ID: 3, CreatedAt: time.Now(), UpdatedAt: time.Now()}, Name: "数据库时间日期类型", Type: "time.Time", Status: status, Desc: "数据库时间日期类型"},
 		{GeaModel: global.GeaModel{ID: 4, CreatedAt: time.Now(), UpdatedAt: time.Now()}, Name: "数据库浮点型", Type: "float64", Status: status, Desc: "数据库浮点型"},

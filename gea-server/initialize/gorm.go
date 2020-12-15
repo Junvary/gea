@@ -32,6 +32,7 @@ func MysqlTables(db *gorm.DB) {
 		model.SysDictionary{},
 		model.SysDictionaryDetail{},
 		model.SysOperationRecord{},
+		model.DevopsServer{},
 	)
 	if err != nil {
 		global.GeaLog.Error("register table failed", zap.Any("err", err))

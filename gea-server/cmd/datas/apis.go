@@ -87,6 +87,15 @@ var Apis = []model.SysApi{
 	{global.GeaModel{ID: 52, CreatedAt: time.Now(), UpdatedAt: time.Now()}, "/sysOperationRecord/findSysOperationRecord", "根据ID获取操作记录", "sysOperationRecord", "GET"},
 	{global.GeaModel{ID: 53, CreatedAt: time.Now(), UpdatedAt: time.Now()}, "/sysOperationRecord/getSysOperationRecordList", "获取操作记录列表", "sysOperationRecord", "GET"},
 	{global.GeaModel{ID: 54, CreatedAt: time.Now(), UpdatedAt: time.Now()}, "/sysOperationRecord/deleteSysOperationRecordByIds", "批量删除操作历史", "sysOperationRecord", "DELETE"},
+
+	// devops组
+	{global.GeaModel{ID: 55, CreatedAt: time.Now(), UpdatedAt: time.Now()}, "/devops/createDevopsServer", "新增远程主机", "devops", "POST"},
+	{global.GeaModel{ID: 56, CreatedAt: time.Now(), UpdatedAt: time.Now()}, "/devops/deleteDevopsServer", "删除远程主机", "devops", "DELETE"},
+	{global.GeaModel{ID: 57, CreatedAt: time.Now(), UpdatedAt: time.Now()}, "/devops/deleteDevopsServerByIds", "批量删除远程主机", "devops", "DELETE"},
+	{global.GeaModel{ID: 58, CreatedAt: time.Now(), UpdatedAt: time.Now()}, "/devops/updateDevopsServer", "更新远程主机", "devops", "PUT"},
+	{global.GeaModel{ID: 59, CreatedAt: time.Now(), UpdatedAt: time.Now()}, "/devops/findDevopsServer", "根据ID获取远程主机", "devops", "GET"},
+	{global.GeaModel{ID: 60, CreatedAt: time.Now(), UpdatedAt: time.Now()}, "/devops/getDevopsServerList", "获取远程主机列表", "devops", "GET"},
+
 }
 
 func InitSysApi(db *gorm.DB) {

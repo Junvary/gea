@@ -84,6 +84,14 @@ var Carbines = []gormadapter.CasbinRule{
 	{PType: "p", V0: "888", V1: "/sysOperationRecord/findSysOperationRecord", V2: "GET"},
 	{PType: "p", V0: "888", V1: "/sysOperationRecord/getSysOperationRecordList", V2: "GET"},
 	{PType: "p", V0: "888", V1: "/sysOperationRecord/deleteSysOperationRecordByIds", V2: "DELETE"},
+
+	//	devops
+	{PType: "p", V0: "888", V1: "/devops/createDevopsServer", V2: "POST"},
+	{PType: "p", V0: "888", V1: "/devops/deleteDevopsServer", V2: "DELETE"},
+	{PType: "p", V0: "888", V1: "/devops/deleteDevopsServerByIds", V2: "DELETE"},
+	{PType: "p", V0: "888", V1: "/devops/updateDevopsServer", V2: "PUT"},
+	{PType: "p", V0: "888", V1: "/devops/findDevopsServer", V2: "GET"},
+	{PType: "p", V0: "888", V1: "/devops/getDevopsServerList", V2: "GET"},
 }
 
 func InitCasbinModel(db *gorm.DB) {

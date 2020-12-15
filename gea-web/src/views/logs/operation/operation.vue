@@ -1,24 +1,22 @@
 <template>
     <div>
-        <div class="page-actions">
-            <el-form :inline="true" :model="searchInfo" class="demo-form-inline">
-                <el-form-item label="请求方法">
-                    <el-input placeholder="搜索条件" v-model="searchInfo.method"></el-input>
-                </el-form-item>
-                <el-form-item label="请求路径">
-                    <el-input placeholder="搜索条件" v-model="searchInfo.path"></el-input>
-                </el-form-item>
-                <el-form-item label="结果状态码">
-                    <el-input placeholder="搜索条件" v-model="searchInfo.status"></el-input>
-                </el-form-item>
-                <el-form-item>
-                    <el-button @click="onSubmit" type="primary">查询</el-button>
-                </el-form-item>
-                <el-form-item>
-                    <el-button @click="onDelete" type="danger">批量删除</el-button>
-                </el-form-item>
-            </el-form>
-        </div>
+        <el-form :inline="true" :model="searchInfo" class="demo-form-inline">
+            <el-form-item label="请求方法">
+                <el-input placeholder="搜索条件" v-model="searchInfo.method"></el-input>
+            </el-form-item>
+            <el-form-item label="请求路径">
+                <el-input placeholder="搜索条件" v-model="searchInfo.path"></el-input>
+            </el-form-item>
+            <el-form-item label="结果状态码">
+                <el-input placeholder="搜索条件" v-model="searchInfo.status"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-button @click="onSubmit" type="primary">查询</el-button>
+            </el-form-item>
+            <el-form-item>
+                <el-button @click="onDelete" type="danger">批量删除</el-button>
+            </el-form-item>
+        </el-form>
         <el-table :data="tableData" @selection-change="handleSelectionChange" border ref="multipleTable" stripe
             style="width: 100%" tooltip-effect="dark" v-loading="loading">
             <el-table-column type="selection" min-width="55"></el-table-column>

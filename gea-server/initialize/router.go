@@ -31,17 +31,18 @@ func Routers() *gin.Engine {
 	PrivateGroup := Router.Group("")
 	PrivateGroup.Use(middleware.JWTAuth()).Use(middleware.CasbinHandler())
 	{
-		router.InitApiRouter(PrivateGroup)                   // 注册功能api路由
-		router.InitJwtRouter(PrivateGroup)                   // jwt相关路由
-		router.InitUserRouter(PrivateGroup)                  // 注册用户路由
-		router.InitMenuRouter(PrivateGroup)                  // 注册menu路由
-		router.InitSystemRouter(PrivateGroup)                // system相关路由
-		router.InitCasbinRouter(PrivateGroup)                // 权限相关路由
-		router.InitAutoCodeRouter(PrivateGroup)              // 创建自动化代码
-		router.InitAuthorityRouter(PrivateGroup)             // 注册角色路由
-		router.InitSysDictionaryRouter(PrivateGroup)         // 字典管理
-		router.InitSysOperationRecordRouter(PrivateGroup)    // 操作记录
-		router.InitSysDictionaryDetailRouter(PrivateGroup)   // 字典详情管理
+		router.InitApiRouter(PrivateGroup)                 // 注册功能api路由
+		router.InitJwtRouter(PrivateGroup)                 // jwt相关路由
+		router.InitUserRouter(PrivateGroup)                // 注册用户路由
+		router.InitMenuRouter(PrivateGroup)                // 注册menu路由
+		router.InitSystemRouter(PrivateGroup)              // system相关路由
+		router.InitCasbinRouter(PrivateGroup)              // 权限相关路由
+		router.InitAutoCodeRouter(PrivateGroup)            // 创建自动化代码
+		router.InitAuthorityRouter(PrivateGroup)           // 注册角色路由
+		router.InitSysDictionaryRouter(PrivateGroup)       // 字典管理
+		router.InitSysOperationRecordRouter(PrivateGroup)  // 操作记录
+		router.InitSysDictionaryDetailRouter(PrivateGroup) // 字典详情管理
+		router.InitDevopsRouter(PrivateGroup)              // 运维组
 	}
 	global.GeaLog.Info("router register success")
 	return Router
