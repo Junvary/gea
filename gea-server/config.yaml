@@ -6,6 +6,8 @@ casbin:
   model-path: ./resource/rbac_model.conf
 jwt:
   signing-key: gea
+  expires-time: 604800
+  buffer-time: 86400
 local:
   path: uploads/file
 mysql:

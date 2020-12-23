@@ -16,7 +16,7 @@ var BaseMenus = []model.SysBaseMenu{
 	// devops
 	{GeaModel: global.GeaModel{ID: 2, CreatedAt: time.Now(), UpdatedAt: time.Now()}, MenuLevel: 0, Hidden: false, ParentId: "0", Path: "devops", Name: "devops", Component: "devops/index.vue", Sort: 2, Meta: model.Meta{Title: "运维管理", Icon: "gea gea-icon-devops"}},
 	{GeaModel: global.GeaModel{ID: 3, CreatedAt: time.Now(), UpdatedAt: time.Now()}, MenuLevel: 0, Hidden: false, ParentId: "2", Path: "server", Name: "server", Component: "devops/server/server.vue", Sort: 1, Meta: model.Meta{Title: "远程主机管理", Icon: "gea gea-icon-server"}},
-	{GeaModel: global.GeaModel{ID: 4, CreatedAt: time.Now(), UpdatedAt: time.Now()}, MenuLevel: 0, Hidden: true, ParentId: "2", Path: "serverSSH/:id", Name: "serverSSH", Component: "devops/serverSSH/serverSSH.vue", Sort: 2, Meta: model.Meta{Title: "主机连接", Icon: "gea gea-icon-server"}},
+	{GeaModel: global.GeaModel{ID: 4, CreatedAt: time.Now(), UpdatedAt: time.Now()}, MenuLevel: 0, Hidden: true, ParentId: "2", Path: "webSSH/:id/:ip/:port/:name", Name: "webSSH", Component: "devops/server/webSSH.vue", Sort: 2, Meta: model.Meta{Title: "主机连接", Icon: "gea gea-icon-server", KeepAlive: true}},
 
 	// 系统权限管理
 	{GeaModel: global.GeaModel{ID: 5, CreatedAt: time.Now(), UpdatedAt: time.Now()}, MenuLevel: 0, Hidden: false, ParentId: "0", Path: "authority", Name: "authority", Component: "authority/index.vue", Sort: 20, Meta: model.Meta{Title: "系统权限管理", Icon: "gea gea-icon-auth"}},
@@ -24,19 +24,23 @@ var BaseMenus = []model.SysBaseMenu{
 	{GeaModel: global.GeaModel{ID: 7, CreatedAt: time.Now(), UpdatedAt: time.Now()}, MenuLevel: 0, Hidden: false, ParentId: "5", Path: "roles", Name: "roles", Component: "authority/roles/roles.vue", Sort: 2, Meta: model.Meta{Title: "角色管理", Icon: "gea gea-icon-role"}},
 	{GeaModel: global.GeaModel{ID: 8, CreatedAt: time.Now(), UpdatedAt: time.Now()}, MenuLevel: 0, Hidden: false, ParentId: "5", Path: "users", Name: "users", Component: "authority/users/users.vue", Sort: 3, Meta: model.Meta{Title: "用户管理", Icon: "gea gea-icon-team"}},
 	{GeaModel: global.GeaModel{ID: 9, CreatedAt: time.Now(), UpdatedAt: time.Now()}, MenuLevel: 0, Hidden: false, ParentId: "5", Path: "apis", Name: "apis", Component: "authority/apis/apis.vue", Sort: 4, Meta: model.Meta{Title: "API管理", Icon: "gea gea-icon-api", KeepAlive: true}},
+
 	// 系统配置管理
 	{GeaModel: global.GeaModel{ID: 10, CreatedAt: time.Now(), UpdatedAt: time.Now()}, MenuLevel: 0, Hidden: false, ParentId: "0", Path: "manage", Name: "manage", Component: "manage/index.vue", Sort: 21, Meta: model.Meta{Title: "系统配置管理", Icon: "gea gea-icon-setting"}},
 	{GeaModel: global.GeaModel{ID: 11, CreatedAt: time.Now(), UpdatedAt: time.Now()}, MenuLevel: 0, Hidden: false, ParentId: "10", Path: "dict", Name: "dict", Component: "manage/dict/dict.vue", Sort: 1, Meta: model.Meta{Title: "字典管理", Icon: "gea gea-icon-dict"}},
 	{GeaModel: global.GeaModel{ID: 12, CreatedAt: time.Now(), UpdatedAt: time.Now()}, MenuLevel: 0, Hidden: true, ParentId: "10", Path: "dictDetail/:id", Name: "dictDetail", Component: "manage/dict/dictDetail.vue", Sort: 2, Meta: model.Meta{Title: "字典详情", Icon: "gea gea-icon-dict"}},
 	{GeaModel: global.GeaModel{ID: 13, CreatedAt: time.Now(), UpdatedAt: time.Now()}, MenuLevel: 0, Hidden: false, ParentId: "10", Path: "config", Name: "config", Component: "manage/config/config.vue", Sort: 3, Meta: model.Meta{Title: "系统配置", Icon: "gea gea-icon-setting"}},
+
 	// 系统工具
 	{GeaModel: global.GeaModel{ID: 14, CreatedAt: time.Now(), UpdatedAt: time.Now()}, MenuLevel: 0, Hidden: false, ParentId: "0", Path: "tools", Name: "tools", Component: "tools/index.vue", Sort: 22, Meta: model.Meta{Title: "系统工具", Icon: "gea gea-icon-tool"}},
 	{GeaModel: global.GeaModel{ID: 15, CreatedAt: time.Now(), UpdatedAt: time.Now()}, MenuLevel: 0, Hidden: false, ParentId: "14", Path: "codeGenerator", Name: "codeGenerator", Component: "tools/codeGenerator/codeGenerator.vue", Sort: 1, Meta: model.Meta{Title: "代码生成器", Icon: "gea gea-icon-code", KeepAlive: true}},
 	{GeaModel: global.GeaModel{ID: 16, CreatedAt: time.Now(), UpdatedAt: time.Now()}, MenuLevel: 0, Hidden: false, ParentId: "14", Path: "formCreate", Name: "formCreate", Component: "tools/formCreate/formCreate.vue", Sort: 2, Meta: model.Meta{Title: "表单生成器", Icon: "gea gea-icon-form", KeepAlive: true}},
 	{GeaModel: global.GeaModel{ID: 17, CreatedAt: time.Now(), UpdatedAt: time.Now()}, MenuLevel: 0, Hidden: false, ParentId: "14", Path: "backServer", Name: "backServer", Component: "tools/server/server.vue", Sort: 3, Meta: model.Meta{Title: "后端服务器", Icon: "gea gea-icon-back-server"}},
+
 	// 系统日志管理
 	{GeaModel: global.GeaModel{ID: 18, CreatedAt: time.Now(), UpdatedAt: time.Now()}, MenuLevel: 0, Hidden: false, ParentId: "0", Path: "logs", Name: "logs", Component: "logs/index.vue", Sort: 23, Meta: model.Meta{Title: "系统日志管理", Icon: "gea gea-icon-log"}},
 	{GeaModel: global.GeaModel{ID: 19, CreatedAt: time.Now(), UpdatedAt: time.Now()}, MenuLevel: 0, Hidden: false, ParentId: "18", Path: "operationLog", Name: "operationLog", Component: "logs/operation/operation.vue", Sort: 1, Meta: model.Meta{Title: "操作日志", Icon: "gea gea-icon-operation"}},
+
 	// 非目录菜单
 	{GeaModel: global.GeaModel{ID: 20, CreatedAt: time.Now(), UpdatedAt: time.Now()}, MenuLevel: 0, Hidden: true, ParentId: "0", Path: "userInfo", Name: "userInfo", Component: "user/userInfo.vue", Sort: 24, Meta: model.Meta{Title: "个人信息", Icon: "gea gea-icon-user"}},
 

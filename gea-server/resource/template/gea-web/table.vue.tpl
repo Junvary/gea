@@ -66,7 +66,7 @@
             {{ end }}
             <el-table-column label="按钮组">
                 <template slot-scope="scope">
-                    <el-button class="table-button" @click="update{{.StructName}}(scope.row)" size="small" type="primary">变更</el-button>
+                    <el-button @click="update{{.StructName}}(scope.row)" size="small" type="primary">变更</el-button>
                     <el-button @click="delete{{.StructName}}(scope.row)" type="danger" size="small">删除</el-button>
                 </template>
             </el-table-column>

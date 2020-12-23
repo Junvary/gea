@@ -12,7 +12,7 @@ export default {
     name: 'PageFooter',
     data() {
         return {
-            volume: 0.2,
+            volume: 0.05,
             audio: [
                 {
                     name: '挚爱',

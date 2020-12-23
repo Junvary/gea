@@ -27,6 +27,7 @@ func Routers() *gin.Engine {
 	PublicGroup := Router.Group("")
 	{
 		router.InitBaseRouter(PublicGroup) // 注册基础功能路由 不做鉴权
+		router.InitWebsocketRouter(PublicGroup)           // websocket组
 	}
 	PrivateGroup := Router.Group("")
 	PrivateGroup.Use(middleware.JWTAuth()).Use(middleware.CasbinHandler())
@@ -43,6 +44,7 @@ func Routers() *gin.Engine {
 		router.InitSysOperationRecordRouter(PrivateGroup)  // 操作记录
 		router.InitSysDictionaryDetailRouter(PrivateGroup) // 字典详情管理
 		router.InitDevopsRouter(PrivateGroup)              // 运维组
+
 	}
 	global.GeaLog.Info("router register success")
 	return Router

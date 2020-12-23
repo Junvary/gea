@@ -7,7 +7,8 @@ import router from '@/router'
 // 创建axios实例service
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
 const service = axios.create({
-    baseURL: process.env.VUE_APP_BASE_API,
+    // 后端已跨域，前端默认使用全局配置，不行的话，使用后面的前端跨域，打开 vue.config.js里面的跨域注释
+    baseURL: window._CONFIG['domainURL'] || process.env.VUE_APP_BASE_API,
     timeout: 15000
 })
 
@@ -32,7 +33,7 @@ service.interceptors.request.use(config => {
 // 响应拦截
 service.interceptors.response.use(response => {
     if (response.headers["new-token"]) {
-        store.commit('user/setToken', response.headers["new-token"])
+        store.dispatch['user/SetToken', response.headers["new-token"]]
     }
     if (response.data.code == 0 || response.headers.success === "true") {
         return response.data

@@ -67,15 +67,17 @@ export default {
     methods: {
         ...mapActions('user', ['Login']),
         async login() {
-            await this.Login(this.loginForm)
-            this.loading = false
+            return await this.Login(this.loginForm)
         },
         async submitForm() {
             this.$refs.loginForm.validate(async (v) => {
                 if (v) {
                     this.loading = true
-                    this.login()
-                    this.loginVefify()
+                    const flag = await this.login()
+                    if (!flag) {
+                        this.loginVefify()
+                        this.loading = false
+                    }
                 } else {
                     this.$message({
                         type: 'error',

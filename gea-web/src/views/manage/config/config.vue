@@ -39,6 +39,12 @@
                         <el-form-item label="签名">
                             <el-input v-model="config.jwt.signingKey"></el-input>
                         </el-form-item>
+                        <el-form-item label="过期事件">
+                            <el-input v-model="config.jwt.expiresTime"></el-input>
+                        </el-form-item>
+                        <el-form-item label="缓冲期">
+                            <el-input v-model="config.jwt.bufferTime"></el-input>
+                        </el-form-item>
                     </el-card>
                     <el-card>
                         <div slot="header" style="color: #C10015; font-weight: bold">

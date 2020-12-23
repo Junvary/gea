@@ -8,6 +8,12 @@
         <!-- iconfont -->
         <link rel="stylesheet" href="//at.alicdn.com/t/font_2259411_2oiv7tqjg54.css">
         <title><%= webpackConfig.name %></title>
+        <script>
+            // 全局配置，打包后仍可修改
+            window._CONFIG = {};
+            window._CONFIG['domainURL'] = 'http://127.0.0.1:8888';
+            window._CONFIG['wsURL'] = 'ws://127.0.0.1:8888/ws';
+          </script>
     </head>
     <body>
             <noscript>

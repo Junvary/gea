@@ -71,10 +71,15 @@
 
             <el-table-column label="按钮组">
                 <template slot-scope="scope">
-                    <el-button class="table-button" @click="updateDevopsServer(scope.row)" size="small" type="primary">
+                    <el-button @click="updateDevopsServer(scope.row)" size="small" type="primary">
                         变更
                     </el-button>
-                    <el-button @click="deleteDevopsServer(scope.row)" type="danger" size="small">删除</el-button>
+                    <el-button @click="handleConsole(scope.row)" size="small" type="primary">
+                        远程终端
+                    </el-button>
+                    <el-button @click="deleteDevopsServer(scope.row)" type="danger" size="small">
+                        删除
+                    </el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -226,6 +231,17 @@ export default {
         },
     },
     methods: {
+        handleConsole(hostInfo) {
+            this.$router.push({
+                name: 'webSSH',
+                params: {
+                    id: hostInfo.ID,
+                    ip: hostInfo.ip,
+                    port: hostInfo.port,
+                    name: hostInfo.name,
+                },
+            })
+        },
         onSubmit() {
             this.page = 1
             this.pageSize = 10

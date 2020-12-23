@@ -34,7 +34,11 @@ const actions = {
             // 在执行下面跳转时，会被router的 beforeEach 捕获，判断 是否存在userinfo
             const redirect = router.history.current.query.redirect || '/'
             router.push({ path: redirect })
+            return true
         }
+    },
+    SetToken({ commit }, token) {
+        commit('SET_TOKEN', token)
     },
     async GetUserinfo({ commit }) {
         const res = await getUserinfo()

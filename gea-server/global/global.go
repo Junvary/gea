@@ -10,9 +10,9 @@ import (
 )
 
 var (
-	GeaDb     *gorm.DB
-	GeaRedis  *redis.Client
-	GeaConfig config.Server
-	GeaViper     *viper.Viper
-	GeaLog    *zap.Logger
+	GeaDb       *gorm.DB
+	GeaRedis    *redis.Client
+	GeaConfig   config.Server
+	GeaViper    *viper.Viper
+	GeaLog      *zap.Logger
 )
