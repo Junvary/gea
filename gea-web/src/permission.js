@@ -4,9 +4,12 @@ import router from './router'
 import store from '@/store'
 import { getToken } from '@/utils/cookies'
 
+import getPageTitle from '@/utils/page'
+
 router.beforeEach(async (to, from, next) => {
     NProgress.start()
     const token = getToken()
+    document.title = getPageTitle(to.meta.title)
     if (token) {
         if (to.path === '/login' || to.path === '/login/' || to.path === '/') {
             next({ path: '/dashboard' })

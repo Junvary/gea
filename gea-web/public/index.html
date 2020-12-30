@@ -7,7 +7,15 @@
         <link rel="icon" href="<%= BASE_URL %>favicon.ico">
         <!-- iconfont -->
         <link rel="stylesheet" href="//at.alicdn.com/t/font_2259411_2oiv7tqjg54.css">
-        <title><%= webpackConfig.name %></title>
+
+        <!-- <title><%= webpackConfig.name %></title> -->
+        <title><%=htmlWebpackPlugin.options.title%></title>
+        <% if(process.env.NODE_ENV!=='development'){ %>
+            <% htmlWebpackPlugin.options.cdns.forEach(function(item){ if(item.js){ %>
+                <script type="text/javascript" src="<%= item.js %>"></script>
+            <% } }) %>
+        <% } %>  
+
         <script>
             // 全局配置，打包后仍可修改
             window._CONFIG = {};

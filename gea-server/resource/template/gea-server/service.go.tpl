@@ -24,7 +24,7 @@ func Create{{.StructName}}({{.Abbreviation}} model.{{.StructName}}) (err error) 
 //@return: err error
 
 func Delete{{.StructName}}({{.Abbreviation}} model.{{.StructName}}) (err error) {
-	err = global.GeaDb.Delete({{.Abbreviation}}).Error
+	err = global.GeaDb.Delete(&{{.Abbreviation}}).Error
 	return err
 }
 

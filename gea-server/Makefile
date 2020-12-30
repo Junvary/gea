@@ -1,11 +1,13 @@
 .PHONY: all build run gotool clean help
 
-BINARY="server"
+BINARY="Gin-Element-Admin"
 GVA = "gva"
 
 all: check gva initdb run
 
 gva:
+    go env -w GO111MODULE=on
+    go env -w GOPROXY=https://goproxy.io,direct
 	go build -o ${GVA} cmd/main.go
 
 initdb:

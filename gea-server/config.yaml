@@ -19,7 +19,7 @@ mysql:
   max-idle-conns: 10
   max-open-conns: 100
   log-mode: false
-  log-zap: false
+  log-zap: ""
 redis:
   db: 0
   addr: 127.0.0.1:6379

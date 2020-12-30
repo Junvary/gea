@@ -220,6 +220,9 @@ export default {
                     type: 'success',
                     message: '删除成功'
                 })
+                if (this.tableData.length == ids.length) {
+                    this.page--;
+                }
                 this.deleteVisible = false
                 this.getTableData()
             }
@@ -272,6 +275,9 @@ export default {
                         type: "success",
                         message: "删除成功"
                     });
+                    if (this.tableData.length == 1) {
+                        this.page--;
+                    }
                     this.getTableData();
                     }
                 })
